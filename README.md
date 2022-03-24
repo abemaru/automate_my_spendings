@@ -1,0 +1,2 @@
+# automate_my_spendings
+家計簿作成の自動化プログラム
