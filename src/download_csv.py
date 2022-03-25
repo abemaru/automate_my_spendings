@@ -1,28 +1,39 @@
 import os
 import time
-from dotenv import load_dotenv
+import requests
+
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
-load_dotenv()
+import src.helper as sh
 
-DOWNLOAD_DIR = "tmp/"
-RAKUTEN_CREDENTIALS = {
-    "id": os.environ.get("RAKUTEN_ID"),
-    "password": os.environ.get("RAKUTEN_PASSWORD")
-}
+def do_it():
+    opt = webdriver.ChromeOptions()
+    opt.add_experimental_option("prefs", {
+        "download.default_directory": sh.DOWNLOAD_DIR,
+        "download.promplt_for_download": False,
+        "plugin.always_open_pdf_externally": True
+    })
+    driver = webdriver.Chrome(service=sh.SERVICE_OBJECT, options=opt)
+    driver.get(sh.RAKUTEN_LOGIN_PAGE)
+    time.sleep(1)
 
-opt = webdriver.ChromeOptions()
-opt.add_experimental_option("prefs", {
-    "download.default_directory": DOWNLOAD_DIR,
-    "download.promplt_for_download": False,
-    "plugin.always_open_pdf_externally": True
-})
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROME_DRIVER_PATH"), options=opt)
-driver.get('https://www.rakuten-card.co.jp/e-navi/index.xhtml')
-time.sleep(1)
+    driver.find_element(by=By.NAME, value="u").send_keys(sh.RAKUTEN_CREDENTIALS["id"])
+    driver.find_element(by=By.NAME, value="p").send_keys(sh.RAKUTEN_CREDENTIALS["password"])
+    time.sleep(3)
+    driver.find_element(by=By.ID, value="loginButton").click()
+    driver.find_element(by=By.LINK_TEXT, value="明細を見る").click()
 
-driver.find_element_by_name("u").send_keys(RAKUTEN_CREDENTIALS["id"])
-driver.find_element_by_name("p").send_keys(RAKUTEN_CREDENTIALS["password"])
-time.sleep(3)
-driver.find_element_by_id("loginButton").click()
-driver.find_element_by_link_text("明細を見る").click()
+    tag = driver.find_element(by=By.CSS_SELECTOR, value=".stmt-c-btn-dl.stmt-csv-btn")
+    href = tag.get_attribute('href')
+
+    c = {}
+    for cookie in driver.get_cookies():
+        c[cookie["name"]] = cookie["value"]
+
+    # この下が動かない
+    r = requests.get(href)
+    with open("rakuten_card.csv", "wb") as f:
+        f.write(r.content)
+
+
