@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import Select
 
 import src.helper as sh
 
+
 def download_from_rakuten():
     opt = webdriver.ChromeOptions()
     opt.add_experimental_option("prefs", sh.CHROME_DRIVER_OPTIONS)
