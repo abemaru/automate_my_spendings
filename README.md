@@ -3,5 +3,8 @@
 
 ToDo
 - [ ] 楽天カード
+  - [x] csv取得の自動化
+  - [ ] 取得したcsvをgoogle spread sheetに反映させる
+- [ ] 三井住友カード
   - [ ] csv取得の自動化
   - [ ] 取得したcsvをgoogle spread sheetに反映させる
