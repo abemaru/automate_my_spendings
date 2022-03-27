@@ -1,4 +1,3 @@
-from distutils.command.clean import clean
 from src.download_csv import *
 from src.clean_tmp import *
 
