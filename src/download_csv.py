@@ -26,6 +26,8 @@ def download_from_rakuten():
         selection.select_by_visible_text(card)
         driver.execute_script("window.scrollTo(0, 300);")
         _download_csv(driver=driver, service="rakuten",card_name=brand)
+    
+    driver.close()
 
 
 def _download_csv(driver: object, service: string,card_name: string):
