@@ -20,3 +20,12 @@ RAKUTEN_CREDENTIALS = {
     "password": os.environ.get("RAKUTEN_PASSWORD")
 }
 
+
+def get_cookies(driver: object):
+    c = {}
+    for cookie in driver.get_cookies():
+        name = cookie['name']
+        value = cookie['value']
+        c[name] = value
+    return c
+
