@@ -19,6 +19,7 @@ RAKUTEN_CREDENTIALS = {
     "id": os.environ.get("RAKUTEN_ID"),
     "password": os.environ.get("RAKUTEN_PASSWORD")
 }
+RAKUTEN_CARD_BRAND = ["Visa", "MasterCard", "JCB", "AMEX"]
 
 
 def get_cookies(driver: object):

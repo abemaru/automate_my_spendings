@@ -7,8 +7,6 @@ import pandas as pd
 import src.helper as sh
 
 from src.download_csv import Rakuten
-
-from src.download_csv import download_from_rakuten
 from src.create_ui import writer
 from src.clean_tmp import clean_tmp
 
@@ -24,7 +22,8 @@ def read_all_files():
 
 
 if __name__ == "__main__":
-    Rakuten("MasterCard").download_csv()
+    master_card = Rakuten.mastercard()
+    master_card.download_csv()
     # download_from_rakuten()
     # df = read_all_files()
     # writer(df)

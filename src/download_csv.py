@@ -1,4 +1,5 @@
 import os
+from sre_constants import BRANCH
 import string
 import time
 import requests
@@ -10,26 +11,33 @@ from selenium.webdriver.support.ui import Select
 import src.helper as sh
 
 class Rakuten():
-    def __init__(self, brand: str) -> None:
+    BRAND = sh.RAKUTEN_CARD_BRAND
+
+    def __init__(self, brand) -> None:
         """
-        brand: "Visa", "MasterCard", "JCB", "AMEX" is available
+        brand:  is available
         """
         self.brand = brand
 
 
     def download_csv(self):
-        self._create_driver()
-        self._login_to_mypage()
-        self._download_csv()
+        self.driver = self.create_driver()
+        self.login_to_mypage()
 
 
-    def _create_driver(self):
+    @classmethod
+    def mastercard(cls):
+        return Rakuten(brand=Rakuten.BRAND[1])
+        
+
+    @staticmethod
+    def create_driver():
         opt = webdriver.ChromeOptions()
         opt.add_experimental_option("prefs", sh.CHROME_DRIVER_OPTIONS)
-        self.driver = webdriver.Chrome(service=sh.SERVICE_OBJECT, options=opt)
+        return webdriver.Chrome(service=sh.SERVICE_OBJECT, options=opt)
 
-    
-    def _login_to_mypage(self):
+
+    def login_to_mypage(self):
         self.driver.get(sh.RAKUTEN_LOGIN_PAGE)
         time.sleep(1)
         self.driver.find_element(by=By.NAME, value="u").send_keys(sh.RAKUTEN_CREDENTIALS["id"])
