@@ -1,3 +1,4 @@
+"""環境変数の読み込みや、設定情報をまとめたファイル"""
 import os
 from dotenv import load_dotenv
 from selenium.webdriver.chrome.service import Service
@@ -20,13 +21,3 @@ RAKUTEN_CREDENTIALS = {
     "password": os.environ.get("RAKUTEN_PASSWORD")
 }
 RAKUTEN_CARD_BRAND = ["Visa", "MasterCard", "JCB", "AMEX"]
-
-
-def get_cookies(driver: object):
-    c = {}
-    for cookie in driver.get_cookies():
-        name = cookie['name']
-        value = cookie['value']
-        c[name] = value
-    return c
-

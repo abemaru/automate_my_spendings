@@ -1,7 +1,5 @@
 import os
 import glob
-from tkinter.tix import Tree
-from matplotlib.pyplot import axis
 import pandas as pd
 
 import src.helper as sh
@@ -23,7 +21,7 @@ def read_all_files():
 
 if __name__ == "__main__":
     master_card = Rakuten.mastercard()
-    master_card.download_csv()
+    master_card.execute_download()
     # download_from_rakuten()
     # df = read_all_files()
     # writer(df)
