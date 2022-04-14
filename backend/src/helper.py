@@ -5,6 +5,8 @@ from selenium.webdriver.chrome.service import Service
 
 load_dotenv()
 
+RUN_TIME=os.environ.get("RUN_TIME")
+
 # for chrome driver
 SERVICE_OBJECT = Service(os.environ.get("CHROME_DRIVER_PATH"))
 DOWNLOAD_DIR = "tmp/"

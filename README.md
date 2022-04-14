@@ -6,6 +6,11 @@ ToDo
   - [x] csv取得の自動化
   - [ ] 取得したcsvをgoogle spread sheetに反映させる
 
+# 環境整備
+```
+$ npm install -g @vue/cli
+```
+
 ## 動かし方
 ```
 streamlit run main.py

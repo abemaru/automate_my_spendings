@@ -5,8 +5,7 @@ import pandas as pd
 import src.helper as sh
 
 from src.download_csv import Rakuten
-from src.create_ui import writer
-from src.clean_tmp import clean_tmp
+from src.streamlit_app import writer
 
 
 def read_all_files():
@@ -22,8 +21,15 @@ def read_all_files():
 if __name__ == "__main__":
     master_card = Rakuten.mastercard()
     master_card.execute_download()
-    # download_from_rakuten()
-    # df = read_all_files()
-    # writer(df)
-    # #clean_tmp()
+
+    visa = Rakuten.visacard()
+    visa.execute_download()
+
+    if sh.RUN_TIME == "LOCAL":
+        # streamlit
+        writer()
+        pass
+    if sh.RUN_TIME == "CLOUD":
+        # flask
+        pass
     
